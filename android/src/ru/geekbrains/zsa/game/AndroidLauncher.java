@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import ru.geekbrains.zsa.game.SpaceBattle;
+import ru.geekbrains.zsa.SpaceBattle;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
