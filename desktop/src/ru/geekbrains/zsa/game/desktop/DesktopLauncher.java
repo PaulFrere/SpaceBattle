@@ -7,8 +7,9 @@ import ru.geekbrains.zsa.SpaceBattle;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = 400;
-		config.width = 600;
+		config.height = 600;
+		config.width = 400;
+		config.resizable = false;
 		new LwjglApplication(new SpaceBattle(), config);
 	}
 }
