@@ -12,7 +12,9 @@ import com.badlogic.gdx.math.Vector2;
 import ru.geekbrains.zsa.math.MatrixUtils;
 import ru.geekbrains.zsa.math.Rect;
 
-public class BaseScreen implements Screen, InputProcessor {protected SpriteBatch batch;
+public class BaseScreen implements Screen, InputProcessor {
+
+    protected SpriteBatch batch;
     private Rect screenBounds;
     private Rect worldBounds;
     private Rect glBounds;
