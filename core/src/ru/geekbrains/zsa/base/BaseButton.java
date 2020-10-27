@@ -11,7 +11,6 @@ public abstract class BaseButton extends Sprite {
     private boolean pressed;
 
     public BaseButton(TextureRegion region) {
-
         super(region);
     }
 
