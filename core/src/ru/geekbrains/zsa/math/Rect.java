@@ -1,6 +1,9 @@
 package ru.geekbrains.zsa.math;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+
+import ru.geekbrains.zsa.gameobject.MainShip;
 
 public class Rect {
     public final Vector2 pos = new Vector2(); // позиция по центру
@@ -53,7 +56,7 @@ public class Rect {
         return halfHeight * 2f;
     }
 
-    public void set(Rect from) {
+    public void set(MainShip mainShip, TextureRegion bulletRegion, Vector2 bulletPos, Vector2 bulletV, Rect from, long play, int i, float v) {
         pos.set(from.pos);
         halfWidth = from.halfWidth;
         halfHeight = from.halfHeight;

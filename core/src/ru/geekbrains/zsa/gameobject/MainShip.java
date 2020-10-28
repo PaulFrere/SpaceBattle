@@ -1,6 +1,8 @@
 package ru.geekbrains.zsa.gameobject;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +22,7 @@ public class MainShip extends Sprite {
     private Rect worldBounds;
     private BulletPool bulletPool;
     private TextureRegion bulletRegion;
+    private Sound bulletSound;
 
     private final Vector2 v = new Vector2();
     private final Vector2 v0 = new Vector2(0.5f, 0);
@@ -32,10 +35,11 @@ public class MainShip extends Sprite {
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
+        this.bulletSound = bulletSound;
     }
 
     @Override
@@ -160,6 +164,9 @@ public class MainShip extends Sprite {
         Bullet bullet = bulletPool.obtain();
         bulletPos.set(pos.x, getTop());
         bullet.set(this, bulletRegion, bulletPos, bulletV, worldBounds, 1, 0.01f);
+        if (bulletSound.play() == -1) {
+            throw new RuntimeException("Can't play sound");
+        }
     }
 }
 

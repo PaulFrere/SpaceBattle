@@ -1,9 +1,12 @@
 package ru.geekbrains.zsa.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.audio.Music;
 
 import ru.geekbrains.zsa.base.BaseScreen;
 import ru.geekbrains.zsa.gameobject.MainShip;
@@ -24,11 +27,18 @@ public class GameScreen extends BaseScreen {
     private BulletPool bulletPool;
     private MainShip mainShip;
 
+    private Music music;
+    private Sound bulletSound;
+
+
     @Override
     public void show() {
         super.show();
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("android/assets/background.jpg");
+        this.music = Gdx.audio.newMusic(Gdx.files.internal("android/assets/sounds/music.mp3"));
+        this.bulletSound = Gdx.audio.newSound(Gdx.files.internal("android/assets/sounds/bullet.wav"));
+
 
         background = new Background(bg);
         stars = new Star[STAR_COUNT];
@@ -36,7 +46,10 @@ public class GameScreen extends BaseScreen {
             stars[i] = new Star(atlas);
         }
         bulletPool = new BulletPool();
-        mainShip = new MainShip(atlas, bulletPool);
+        mainShip = new MainShip(atlas, bulletPool, bulletSound);
+
+        this.music.setLooping(true);
+        this.music.play();
     }
 
     @Override
@@ -60,6 +73,7 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void dispose() {
+        bulletSound.dispose();
         bg.dispose();
         atlas.dispose();
         bulletPool.dispose();
