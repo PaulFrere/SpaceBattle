@@ -33,7 +33,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
-        atlas = new TextureAtlas("tools/menuAtlas/test.pack");
+        atlas = new TextureAtlas("textures/menuAtlas.tpack");
         bg = new Texture("android/assets/background.jpg");
 
         background = new Background(bg);

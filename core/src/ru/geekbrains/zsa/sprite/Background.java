@@ -9,7 +9,6 @@ import ru.geekbrains.zsa.math.Rect;
 public class Background extends Sprite {
 
     public Background(Texture region) {
-
         super(new TextureRegion(region));
     }
 
