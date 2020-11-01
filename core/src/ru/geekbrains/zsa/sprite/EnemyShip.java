@@ -1,9 +1,5 @@
 package ru.geekbrains.zsa.sprite;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-
 import ru.geekbrains.zsa.base.Ship;
 import ru.geekbrains.zsa.base.EnemySettingsDto;;
 import ru.geekbrains.zsa.math.Rect;
@@ -11,17 +7,33 @@ import ru.geekbrains.zsa.pool.BulletPool;
 
 public class EnemyShip extends Ship {
 
+    private enum State { DESCENT, FIGHT }
+    private State state;
+
     public EnemyShip(BulletPool bulletPool, Rect worldBounds) {
         this.bulletPool = bulletPool;
         this.worldBounds = worldBounds;
     }
 
+
     @Override
     public void update(float delta) {
-        bulletPos.set(pos.x, getBottom());
         super.update(delta);
-        if (getBottom() < worldBounds.getBottom()) {
-            destroy();
+        bulletPos.set(pos.x, getBottom());
+        pos.mulAdd(v, delta);
+        switch (state) {
+            case DESCENT:
+                if (getTop() <= worldBounds.getTop()) {
+                    v.set(v0);
+                    state = State.FIGHT;
+                }
+                break;
+            case FIGHT:
+                reloadTimer += delta;
+                if (reloadTimer >= reloadInterval) {
+                    reloadTimer = 0f;
+                    shoot();
+                }
         }
     }
 
