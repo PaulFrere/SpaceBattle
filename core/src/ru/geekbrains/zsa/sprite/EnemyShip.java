@@ -7,8 +7,7 @@ import ru.geekbrains.zsa.pool.BulletPool;
 
 public class EnemyShip extends Ship {
 
-    private enum State { DESCENT, FIGHT }
-    private State state;
+    private static final float START_V_Y = -0.3f;
 
     public EnemyShip(BulletPool bulletPool, Rect worldBounds) {
         this.bulletPool = bulletPool;
@@ -20,26 +19,19 @@ public class EnemyShip extends Ship {
     public void update(float delta) {
         super.update(delta);
         bulletPos.set(pos.x, getBottom());
-        pos.mulAdd(v, delta);
-        switch (state) {
-            case DESCENT:
-                if (getTop() <= worldBounds.getTop()) {
-                    v.set(v0);
-                    state = State.FIGHT;
-                }
-                break;
-            case FIGHT:
-                reloadTimer += delta;
-                if (reloadTimer >= reloadInterval) {
-                    reloadTimer = 0f;
-                    shoot();
-                }
+        if (getTop() < worldBounds.getTop()) {
+            v.set(v0);
+        } else {
+            reloadTimer = reloadInterval - delta * 2;
+        }
+        if (getBottom() < worldBounds.getBottom()) {
+            destroy();
         }
     }
 
     public void set(EnemySettingsDto settings) {
         this.regions = settings.getRegions();
-        this.v.set(settings.getV0());
+        this.v0.set(settings.getV0());
         this.bulletRegion = settings.getBulletRegion();
         this.bulletHeight = settings.getBulletHeight();
         this.bulletV.set(settings.getBulletV());
@@ -48,6 +40,8 @@ public class EnemyShip extends Ship {
         this.reloadInterval = settings.getReloadInterval();
         setHeightProportion(settings.getHeight());
         this.hp = settings.getHp();
+        this.v.set(0, START_V_Y);
+        this.reloadTimer = 0f;
     }
 
 }
