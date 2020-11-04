@@ -1,5 +1,6 @@
 package ru.geekbrains.zsa.screen;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -17,7 +18,9 @@ import ru.geekbrains.zsa.pool.ExplosionPool;
 import ru.geekbrains.zsa.sprite.Background;
 import ru.geekbrains.zsa.sprite.Bullet;
 import ru.geekbrains.zsa.sprite.EnemyShip;
+import ru.geekbrains.zsa.sprite.GameOver;
 import ru.geekbrains.zsa.sprite.MainShip;
+import ru.geekbrains.zsa.sprite.NewGame;
 import ru.geekbrains.zsa.sprite.Star;
 import ru.geekbrains.zsa.utils.EnemyEmitter;
 
@@ -38,6 +41,9 @@ public class GameScreen extends BaseScreen {
     private ExplosionPool explosionPool;
     private MainShip mainShip;
     private EnemyEmitter enemyEmitter;
+    private GameOver gameOver;
+    private NewGame newGame;
+    private Game game;
 
     @Override
     public void show() {
@@ -141,6 +147,11 @@ public class GameScreen extends BaseScreen {
             if (enemyShip.pos.dst(mainShip.pos) < minDist) {
                 enemyShip.destroy();
                 mainShip.damage(enemyShip.getDamage());
+                if (mainShip.isDestroyed()){
+                    freeAllDestroyed();
+                    gameOver = new GameOver(atlas);
+                    newGame = new NewGame(atlas, game);
+                }
                 return;
             }
         }
@@ -182,7 +193,7 @@ public class GameScreen extends BaseScreen {
         bulletPool.drawActiveSprites(batch);
         enemyShipPool.drawActiveSprites(batch);
         mainShip.draw(batch);
-        enemyShipPool.drawActiveSprites(batch);
+//        enemyShipPool.drawActiveSprites(batch);
         bulletPool.drawActiveSprites(batch);
         explosionPool.drawActiveSprites(batch);
         batch.end();
