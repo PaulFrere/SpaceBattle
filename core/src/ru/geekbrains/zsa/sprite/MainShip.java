@@ -40,6 +40,17 @@ public class MainShip extends Ship {
         this.hp = HP;
     }
 
+    public void startNewGame(Rect worldBounds) {
+        this.hp = HP;
+        this.pos.x = worldBounds.pos.x;
+        pressedLeft = false;
+        pressedRight = false;
+        leftPointer = INVALID_POINTER;
+        rightPointer = INVALID_POINTER;
+        stop();
+        flushDestroy();
+    }
+
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;
