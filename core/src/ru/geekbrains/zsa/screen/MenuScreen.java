@@ -34,7 +34,7 @@ public class MenuScreen extends BaseScreen {
     public void show() {
         super.show();
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
-        bg = new Texture("android/assets/background.jpg");
+        bg = new Texture("background.jpg");
 
         background = new Background(bg);
         stars = new Star[STAR_COUNT];

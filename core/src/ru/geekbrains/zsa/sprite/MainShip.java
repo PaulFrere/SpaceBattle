@@ -69,12 +69,6 @@ public class MainShip extends Ship {
             setLeft(worldBounds.getLeft());
             stop();
         }
-//        2-й пример ограничений
-//        if (getLeft() > worldBounds.getRight()) {
-//            setRight(worldBounds.getLeft());
-//        } else if (getRight() < worldBounds.getLeft()) {
-//            setLeft(worldBounds.getRight());
-//        }
     }
 
     public void dispose() {

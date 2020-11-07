@@ -19,7 +19,7 @@ public class EnemySmallSettingsDto extends EnemySettingsDto {
     public EnemySmallSettingsDto(TextureAtlas atlas, Sound bulletSound) {
         TextureRegion enemy0 = atlas.findRegion("enemy0");
         setRegions(Regions.split(enemy0, 1, 2, 2));
-        setV0(new Vector2(0f, -0.2f));
+        setV0(new Vector2(0f, -0.1f));
         setBulletRegion(atlas.findRegion("bulletEnemy"));
         setBulletHeight(ENEMY_SMALL_BULLET_HEIGHT);
         setBulletV(new Vector2(0f, -0.3f));
@@ -28,5 +28,14 @@ public class EnemySmallSettingsDto extends EnemySettingsDto {
         setReloadInterval(ENEMY_SMALL_RELOAD_INTERVAL);
         setHeight(ENEMY_SMALL_HEIGHT);
         setHp(ENEMY_SMALL_HP);
+    }
+    @Override
+    public void setDamageForLevel(int level) {
+        setDamage(ENEMY_SMALL_DAMAGE * level);
+    }
+
+    @Override
+    public void setBulletSpeedForLevel(int level){
+        setBulletV(new Vector2(0f, -0.25f*(level - 0.2f/level)));
     }
 }
