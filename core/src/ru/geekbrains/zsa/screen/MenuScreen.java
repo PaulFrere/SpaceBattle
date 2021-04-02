@@ -1,68 +1,64 @@
 package ru.geekbrains.zsa.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+import ru.geekbrains.zsa.Logo;
 import ru.geekbrains.zsa.base.BaseScreen;
+import ru.geekbrains.zsa.math.Rect;
+import ru.geekbrains.zsa.sprite.Background;
 
 public class MenuScreen extends BaseScreen {
 
-    private static final float V_LEN = 0.5f;
-
+    private Texture bg;
+    private Background background;
     private Texture img;
-    private Vector2 pos;
-    private Vector2 v;
-    private Vector2 vec;
-    private Vector2 touch;
+    private Logo logo;
 
     @Override
     public void show() {
         super.show();
+        bg = new Texture("android/assets/background.jpg");
+        background = new Background(bg);
         img = new Texture("badlogic.jpg");
-        pos = new Vector2();
-        v = new Vector2(1, 1);
-        vec = new Vector2();
-        touch = new Vector2();
+        logo = new Logo(img);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
-        batch.begin();
-        batch.draw(img, pos.x, pos.y);
-        batch.end();
-        vec.set(touch);
-        if (vec.sub(pos).len() <= v.len()) {
-            pos.set(touch);
-        } else {
-            pos.add(v);
-        }
+        update(delta);
+        draw();
+    }
+
+    @Override
+    public void resize(Rect worldBounds) {
+
+        background.resize(worldBounds);
+        logo.resize(worldBounds);
     }
 
     @Override
     public void dispose() {
+        bg.dispose();
+        img.dispose();
         super.dispose();
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        touch.set(screenX, Gdx.graphics.getHeight() - screenY);
-        v = touch.cpy().sub(pos).setLength(V_LEN);
+    public boolean touchDown(Vector2 touch, int pointer, int button) {
+        logo.touchDown(touch, pointer, button);
         return false;
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
-        if (Input.Keys.SPACE != keycode) {
-            return super.keyDown(keycode);
-        }
-        if (v.isZero()) {
-            v.set(1, 1);
-        } else {
-            v.setZero();
-        }
-        return super.keyDown(keycode);
+    private void update (float delta) {
+        logo.update(delta);
+    }
+
+    private  void draw() {
+        batch.begin();
+        background.draw(batch);
+        logo.draw(batch);
+        batch.end();
     }
 }
