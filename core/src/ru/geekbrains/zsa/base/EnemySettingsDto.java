@@ -73,6 +73,8 @@ public abstract class EnemySettingsDto {
         this.damage = damage;
     }
 
+    public abstract void setDamageForLevel(int level);
+
     public float getReloadInterval() {
         return reloadInterval;
     }
@@ -96,4 +98,6 @@ public abstract class EnemySettingsDto {
     public void setHp(int hp) {
         this.hp = hp;
     }
+
+    public abstract void setBulletSpeedForLevel(int level);
 }

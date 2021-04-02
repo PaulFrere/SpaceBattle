@@ -19,14 +19,22 @@ public class EnemyBigSettingsDto extends EnemySettingsDto {
     public EnemyBigSettingsDto(TextureAtlas atlas, Sound bulletSound) {
         TextureRegion enemy0 = atlas.findRegion("enemy2");
         setRegions(Regions.split(enemy0, 1, 2, 2));
-        setV0(new Vector2(0f, -0.005f));
+        setV0(new Vector2(0f, -0.015f));
         setBulletRegion(atlas.findRegion("bulletEnemy"));
         setBulletHeight(ENEMY_BIG_BULLET_HEIGHT);
-        setBulletV(new Vector2(0f, -0.25f));
+        setBulletV(new Vector2(0f, -0.225f));
         setBulletSound(bulletSound);
         setDamage(ENEMY_BIG_DAMAGE);
         setReloadInterval(ENEMY_BIG_RELOAD_INTERVAL);
         setHeight(ENEMY_BIG_HEIGHT);
         setHp(ENEMY_BIG_HP);
+    }
+    @Override
+    public void setDamageForLevel(int level) {
+        setDamage(ENEMY_BIG_DAMAGE * level);
+    }
+    @Override
+    public void setBulletSpeedForLevel(int level){
+        setBulletV(new Vector2(0f, -0.25f*(level - 0.2f/level)));
     }
 }

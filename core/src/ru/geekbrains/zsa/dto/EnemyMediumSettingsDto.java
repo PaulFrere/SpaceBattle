@@ -29,4 +29,13 @@ public class EnemyMediumSettingsDto extends EnemySettingsDto {
         setHeight(ENEMY_MEDIUM_HEIGHT);
         setHp(ENEMY_MEDIUM_HP);
     }
+    @Override
+    public void setDamageForLevel(int level) {
+        setDamage(ENEMY_MEDIUM_DAMAGE * level);
+    }
+
+    @Override
+    public void setBulletSpeedForLevel(int level){
+        setBulletV(new Vector2(0f, -0.25f*(level - 0.2f/level)));
+    }
 }
