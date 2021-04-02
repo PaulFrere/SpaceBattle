@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
 
 public class MatrixUtils {
+
     private MatrixUtils() {
     }
 
@@ -30,5 +31,4 @@ public class MatrixUtils {
         float scaleY = dst.getHeight() / src.getHeight();
         mat.idt().translate(dst.pos.x, dst.pos.y).scale(scaleX, scaleY).translate(-src.pos.x, -src.pos.y);
     }
-
 }

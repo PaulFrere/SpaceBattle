@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import ru.geekbrains.zsa.math.Rect;
 import ru.geekbrains.zsa.utils.Regions;
 
-public class Sprite extends Rect {
+public abstract class Sprite extends Rect {
 
     protected float angle;
     protected float scale = 1;
@@ -80,3 +80,4 @@ public class Sprite extends Rect {
         destroyed = false;
     }
 }
+

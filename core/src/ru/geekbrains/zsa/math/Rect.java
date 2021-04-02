@@ -1,8 +1,12 @@
 package ru.geekbrains.zsa.math;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
+import ru.geekbrains.zsa.sprite.MainShip;
+
 public class Rect {
+
     public final Vector2 pos = new Vector2(); // позиция по центру
     protected float halfWidth; // половина ширины
     protected float halfHeight; // половина высоты
