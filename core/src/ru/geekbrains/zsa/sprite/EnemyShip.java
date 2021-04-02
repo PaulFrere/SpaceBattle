@@ -1,9 +1,5 @@
 package ru.geekbrains.zsa.sprite;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-
 import ru.geekbrains.zsa.base.Ship;
 import ru.geekbrains.zsa.base.EnemySettingsDto;;
 import ru.geekbrains.zsa.math.Rect;
@@ -11,15 +7,23 @@ import ru.geekbrains.zsa.pool.BulletPool;
 
 public class EnemyShip extends Ship {
 
+    private static final float START_V_Y = -0.3f;
+
     public EnemyShip(BulletPool bulletPool, Rect worldBounds) {
         this.bulletPool = bulletPool;
         this.worldBounds = worldBounds;
     }
 
+
     @Override
     public void update(float delta) {
-        bulletPos.set(pos.x, getBottom());
         super.update(delta);
+        bulletPos.set(pos.x, getBottom());
+        if (getTop() < worldBounds.getTop()) {
+            v.set(v0);
+        } else {
+            reloadTimer = reloadInterval - delta * 2;
+        }
         if (getBottom() < worldBounds.getBottom()) {
             destroy();
         }
@@ -27,7 +31,7 @@ public class EnemyShip extends Ship {
 
     public void set(EnemySettingsDto settings) {
         this.regions = settings.getRegions();
-        this.v.set(settings.getV0());
+        this.v0.set(settings.getV0());
         this.bulletRegion = settings.getBulletRegion();
         this.bulletHeight = settings.getBulletHeight();
         this.bulletV.set(settings.getBulletV());
@@ -36,6 +40,8 @@ public class EnemyShip extends Ship {
         this.reloadInterval = settings.getReloadInterval();
         setHeightProportion(settings.getHeight());
         this.hp = settings.getHp();
+        this.v.set(0, START_V_Y);
+        this.reloadTimer = 0f;
     }
 
 }
